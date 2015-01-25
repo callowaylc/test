@@ -54,3 +54,20 @@ class BreathFirstSearch
     @visited.include?(node)
   end
 end
+
+
+  def depth_first_search(item)
+    stack = [@root]
+
+    while !stack.empty?
+      current_node = stack.pop
+      return current_node if current_node.value == item
+
+      stack << current_node.left_child if
+!current_node.left_child.nil?
+      stack << current_node.right_child if
+!current_node.right_child.nil?
+    end
+    puts "Item not found"
+    return nil
+  end
