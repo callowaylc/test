@@ -1,0 +1,29 @@
+{  
+// author: christian calloway ccalloway@gmail.com
+// description: returns all new entries in the last N minutes
+
+  // note: using arbitrarily large value for size here
+  // so please sane defaults for N
+  "size" : 1000000,
+
+  "sort": { "@timestamp": {
+    "order" : "desc"
+  }},
+
+  "query": { 
+    "filtered" : {
+      "query" : { 
+        "bool": {
+          "must": { "term": {  "@fields.message.value.data.can_action" : "createlead"  }}
+        }
+      },
+
+      "filter" : { 
+        "range" : { "@timestamp" : {
+          "gt" : "now-<%= since %>"
+        }}
+      }    
+    }
+  } 
+
+}
